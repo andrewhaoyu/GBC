@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "her2.log<-function(prev.D, her2.LT){\n# Description\n# This function coverts a heritability estimate in the liability-threshold (LT) scale \n# to that in the log-risk scale.\n# Arguments\n# prev.D: prevalence of disease of interest\n# her2.LT: heritability estimate in the LT scale\n  return((dnorm(qnorm(1-prev.D))/prev.D)^2*her2.LT)\n}\n\n### Example\nprev.D<-0.01\nher2.LT<-0.471208  \nher2<-her2.log(prev.D, her2.LT)\n\n### AUC calculation based on heritability in the log-risk scale\npnorm(sqrt(her2/2))\n\n\n### sibling relative risk \n sqrt(exp(her2))\n",
+    "created" : 1494612336328.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "492539103",
+    "id" : "7BA568F7",
+    "lastKnownWriteTime" : 1494866892,
+    "last_content_update" : 1494866892460,
+    "path" : "~/Dropbox/project/Nilanjan/Gallballadar_Cancer/code/her2_log.R",
+    "project_path" : "her2_log.R",
+    "properties" : {
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

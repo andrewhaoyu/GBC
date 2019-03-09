@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "rm(list=ls()) #clear the environment\n\ncommanarg <- commandArgs(trailingOnly = TRUE)\ni1 <- as.numeric(commanarg[1])\ni2 <- as.numeric(commanarg[2])\n\nlibrary(ggplot2)\nlibrary(CGEN)\nlibrary(GenomicRanges)\nlibrary(rtracklayer)\nsetwd(\"../data\")\nsmall.head <- function(x){\n  return(x[1:20,1:20])\n}\n\n\ncgen.logit <- function(pheno,geno,i){\n  \n  snp <- as.numeric(geno[,i])\n  data <- cbind(pheno,as.numeric(snp))\n  colnames(data) <- c(colnames(pheno),\"snp\")\n  model <- snp.logistic(data,\"affected\",\"snp\",main.vars=~age+gender+EV3+EV4+EV5+EV8+EV9)\n  model.sum <- getSummary(model)\n  return(c(i,model.sum$UML[9,4],model.sum$CML[9,4],model.sum$EB[9,4]))\n}\n\n\npheno <- read.table(\"pheno_ev\",header=T,sep=\"\\t\")  ###read the phenotype file\nfam <- read.table(\"GBC_final.fam\")    ###read the fam file\n### change the column affected_status from \"case\" and \"control\" into 1 and 0\npheno$X <- NULL\npheno$affected_status.1 <- NULL\npheno$affected <- 0\npheno$affected[pheno$affected_status==\"Case\"] <- 1\n###create my own pheno.txt\nmy.pheno <- fam[,1:2]\nmy.pheno <- cbind(my.pheno,pheno$affected,rbinom(nrow(my.pheno),1,0.5),rbinom(nrow(my.pheno),1,0.5))\nwrite.table(my.pheno,\"pheno.txt\",quote=F,col.names=F,row.names = F)\n\n\nEV.pheno <- pheno[,17:26]\npheno.EV.cor <- apply(EV.pheno,2,function(x) {cor.test(pheno$affected,x)})\n\nptm <- proc.time()\nall.geno <- read.plink(\"GBC_final.bed\",\"GBC_final.bim\",\"GBC_final.fam\")\nproc.time()-ptm\ngeno <- all.geno$genotypes\nfam <- all.geno$fam\nmap <- all.geno$map\nloop.seq <- c(i1:i2)\n\ncgen.logit.result<-sapply(loop.seq,function(x){cgen.logit(pheno,geno,x) })\nsetwd(\"../result\")\nsave(cgen.logit.result,file=paste0(\"i1_i2.rda\"))\n\n\n",
+    "created" : 1484358051887.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2521839473",
+    "id" : "EAB83727",
+    "lastKnownWriteTime" : 1446064963,
+    "last_content_update" : 1446064963,
+    "path" : "~/Dropbox/project/Nilanjan/Gallballadar_Cancer/code/GBC_Oct23_Cl.R",
+    "project_path" : "GBC_Oct23_Cl.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
