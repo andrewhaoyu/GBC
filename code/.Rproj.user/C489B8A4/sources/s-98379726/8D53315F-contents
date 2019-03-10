@@ -62,7 +62,7 @@ pos.list <- c(45958856,
 # pos.list <- c(87105795,87060844)
 # 
 # 
-# try2 <- which(data$position%in%pos.list)
+#try2 <- which(data$position%in%pos.list)
 # length(try2)
 # data[try2,]
 
@@ -75,7 +75,7 @@ result <- NULL
 
 
 file <- files[i1]
-load("/dcl01/chatterj/data/GB/NEW/KG/mergesnp.Rdata")
+#load("/dcl01/chatterj/data/GB/NEW/KG/mergesnp.Rdata")
 load(file)
 chr.temp <- gsub("/dcl01/chatterj/data/GB/NEW/KG/snpR/chr","",file)
 chr.temp <- gsub(".imputed.txt.gz.rda","",chr.temp)
