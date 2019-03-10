@@ -7,13 +7,13 @@
     "folds" : "",
     "hash" : "0",
     "id" : "8D53315F",
-    "lastKnownWriteTime" : 1552195966,
-    "last_content_update" : 1552195966246,
+    "lastKnownWriteTime" : 1552196268,
+    "last_content_update" : 1552196268464,
     "path" : "~/GoogleDrive/project/Nilanjan/Gallballadar_Cancer/code/extract_SNP.R",
     "project_path" : "extract_SNP.R",
     "properties" : {
-        "cursorPosition" : "16,0",
-        "scrollLine" : "0"
+        "cursorPosition" : "66,76",
+        "scrollLine" : "37"
     },
     "relative_order" : 1,
     "source_on_save" : false,

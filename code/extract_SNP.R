@@ -64,6 +64,6 @@ chr.pos.target <- paste0(chr.list,":",pos.list)
 try <- chr.pos%in%chr.pos.target
 if(sum(try)!=0){
 	result <- data[try,]
-	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/result_new",i1,".rda"))
+	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/result_extract",i1,".rda"))
 }
 
