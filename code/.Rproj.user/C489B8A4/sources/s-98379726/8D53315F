@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2104143092",
+    "hash" : "0",
     "id" : "8D53315F",
-    "lastKnownWriteTime" : 1552197295,
-    "last_content_update" : 1552197295693,
+    "lastKnownWriteTime" : 1552198714,
+    "last_content_update" : 1552198714552,
     "path" : "~/GoogleDrive/project/Nilanjan/Gallballadar_Cancer/code/extract_SNP.R",
     "project_path" : "extract_SNP.R",
     "properties" : {
-        "cursorPosition" : "20,15",
-        "scrollLine" : "8"
+        "cursorPosition" : "69,15",
+        "scrollLine" : "38"
     },
     "relative_order" : 1,
     "source_on_save" : false,

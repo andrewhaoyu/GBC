@@ -67,4 +67,4 @@ if(sum(try)!=0){
 	result <- data[try,]
 	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/result_extract",i1,".rda"))
 }
-
+print("finished")
