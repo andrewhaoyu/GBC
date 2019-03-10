@@ -62,7 +62,7 @@ pos.list <- c(45958856,
 # pos.list <- c(87105795,87060844)
 # 
 # 
-try2 <- which(data$position%in%pos.list)
+#try2 <- which(data$position%in%pos.list)
 # length(try2)
 # data[try2,]
 
