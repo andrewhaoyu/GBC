@@ -18,7 +18,8 @@
 
 
 commanarg <- commandArgs(trailingOnly = T)
-i1 <- as.numeric(commanarg[1])
+print(commanarg)
+i1 <- as.numeric(commanarg[[1]])
 print(i1)
 
 #snplist.gtex = c("rs10004195","rs368433")
