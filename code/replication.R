@@ -11,7 +11,7 @@ bim.top <- merge(topsnplist,bim,by.x="snp",sort=F)
 freq.top <- merge(topsnplist,freq,by.x="snp",by.y="SNP",sort=F)
 snpdata <- read.table("topsnp.raw",header=T)
 
-pheno_new <- read.table("pheno_SNPtest.txt",header=T)
+pheno_new <- read.table("../data/pheno_SNPtest.txt",header=T)
 covar <- pheno_new[,2:11]
 load("predexp_all.rda")
 gene <- predexp.all[,2]
