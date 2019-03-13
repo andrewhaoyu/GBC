@@ -264,8 +264,9 @@ prs.result <- rbind(prs.result,
 # or[4] <- result4[[3]]
 # p[4] <- result4[[4]]
 
-PRS.result <- data.frame(log.or,sd.log.or,or,p,stringsAsFactors = F)
-
+#PRS.result <- data.frame(log.or,sd.log.or,or,p,stringsAsFactors = F)
+write.csv(pheno_all,file = "pheno_all_GBC.csv")
+write.csv(prs.result,file = "PRS_result_GBC.csv")
 
 
 
@@ -322,6 +323,7 @@ PRSFun <- function(y,PRS){
   function.result [[4]] <- result$coefficients[2,4]
   return(function.result)
 }
+
 
 # pheno_SNPtest.txtx
 # file <- files[i1]

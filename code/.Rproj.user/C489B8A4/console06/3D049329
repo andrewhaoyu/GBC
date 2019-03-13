@@ -5757,4 +5757,617 @@ There were 29 warnings (use warnings() to see them)
 27                   -0.260167999
 28                   -0.008635179
 29                    0.650707368
+> model.result
+       MAF IND OR (95% CI) GallBladderCancer (IND) P GallBladderCancer
+1  0.321267007                    0.73 [0.58,0.92]         0.007134677
+2  0.086734694                    1.45 [1.02,2.05]         0.039351958
+3  0.037414966                    1.59 [0.93,2.72]         0.087435976
+4  0.700335034                    1.44 [1.12,1.84]         0.004001547
+5  0.377284014                        1 [0.8,1.24]         0.969681663
+6  0.002928571                    0.33 [0.04,2.67]         0.295999700
+7  0.057823129                    1.14 [0.74,1.76]         0.554301177
+8  0.416003401                    1.16 [0.94,1.44]         0.170740473
+9  0.031318027                    0.88 [0.47,1.67]         0.701202635
+10 0.004743197                      1.3 [0.2,8.36]         0.779575797
+11 0.160698980                    0.89 [0.67,1.18]         0.426574786
+12 0.214998299                    0.81 [0.62,1.05]         0.108465880
+13 0.532484694                    1.15 [0.93,1.42]         0.196834092
+14 0.466217687                     0.9 [0.73,1.11]         0.321520975
+15 0.047619048                    1.02 [0.63,1.64]         0.942603427
+16 0.304421769                        1 [0.8,1.25]         0.993686516
+17 0.015500000                    0.74 [0.25,2.18]         0.579599087
+18 0.372069728                    1.17 [0.95,1.45]         0.143296331
+19 0.159863946                    1.28 [0.97,1.68]         0.083100135
+20 0.360848639                    0.91 [0.73,1.13]         0.374378806
+21 0.039115646                    1.25 [0.74,2.12]         0.398657957
+22 0.032591837                    1.51 [0.87,2.59]         0.140225286
+23 0.110899660                    0.87 [0.62,1.21]         0.409270859
+24 0.412003401                    0.98 [0.79,1.21]         0.827922141
+25 0.127551020                      0.57 [0.4,0.8]         0.001355605
+26 0.301522109                    1.03 [0.83,1.29]         0.793916859
+27 0.044217687                     0.8 [0.48,1.33]         0.395356691
+28 0.394557823                    1.19 [0.96,1.47]         0.111367645
+29 0.001884354                    2.03 [0.1,42.74]         0.650000906
+   log OR GallBladderCancer (IND) OR (95% CI) GallStone (IND) P GallStone (IND)
+1                   -0.3119778131            0.94 [0.79,1.11]      4.421499e-01
+2                    0.3683950090            1.27 [1.01,1.59]      3.916485e-02
+3                    0.4661810078            1.65 [1.17,2.33]      4.480714e-03
+4                    0.3629793821                1.2 [1,1.44]      4.535425e-02
+5                   -0.0042049167            1.05 [0.91,1.22]      4.866762e-01
+6                   -1.1204218719            1.21 [0.21,7.06]      8.312810e-01
+7                    0.1309245542            1.51 [1.13,2.01]      5.623034e-03
+8                    0.1488414311            0.99 [0.85,1.15]      9.012561e-01
+9                   -0.1245110893            1.13 [0.71,1.81]      6.046426e-01
+10                   0.2652689438             1.93 [0.55,6.7]      3.025779e-01
+11                  -0.1142999673            1.05 [0.86,1.27]      6.480581e-01
+12                  -0.2128666537               1 [0.83,1.22]      9.618582e-01
+13                   0.1388987261            1.02 [0.88,1.18]      8.164057e-01
+14                  -0.1042904328              1.04 [0.9,1.2]      6.031272e-01
+15                   0.0176127920             1.16 [0.85,1.6]      3.508408e-01
+16                   0.0008814925            1.07 [0.92,1.25]      3.730250e-01
+17                  -0.3064969366            1.25 [0.56,2.81]      5.862601e-01
+18                   0.1578934208            1.12 [0.96,1.29]      1.405951e-01
+19                   0.2441427640            1.01 [0.84,1.22]      8.968786e-01
+20                  -0.0996526715            0.98 [0.84,1.14]      7.559752e-01
+21                   0.2256834289            1.06 [0.75,1.49]      7.581247e-01
+22                   0.4089707913            1.86 [1.36,2.53]      8.398376e-05
+23                  -0.1400742862            0.88 [0.69,1.12]      2.896062e-01
+24                  -0.0235673674            0.96 [0.83,1.11]      5.721941e-01
+25                  -0.5633662251            0.75 [0.58,0.95]      1.905255e-02
+26                   0.0295457422               1.17 [1,1.36]      4.420418e-02
+27                  -0.2197191836            0.66 [0.46,0.96]      3.014552e-02
+28                   0.1736393247            1.03 [0.89,1.19]      6.790759e-01
+29                   0.7059063564           6.65 [0.76,58.26]      8.728464e-02
+   log OR GallStone (IND)
+1            -0.064916338
+2             0.237816837
+3             0.501826507
+4             0.185739823
+5             0.052806577
+6             0.191686509
+7             0.409339516
+8            -0.009394473
+9             0.124255507
+10            0.655471692
+11            0.045323192
+12            0.004680947
+13            0.017288646
+14            0.038562622
+15            0.152264826
+16            0.069844795
+17            0.224616213
+18            0.110660170
+19            0.012308375
+20           -0.024463821
+21            0.053701670
+22            0.619187514
+23           -0.129687004
+24           -0.042300789
+25           -0.292425019
+26            0.156689281
+27           -0.411412699
+28            0.030939651
+29            1.893934252
+> snp.data
+          SNP CHR  Position Minor.Allele Major.Allele MAF.Iceland MAF.UKBB
+1   rs2291428  10  45958856            C            G     0.21800   0.2430
+2   rs2290846   4 151199080            A            G     0.28500   0.2900
+3   rs1800961  20  43042364            T            C     0.04600   0.0314
+4    rs601338  19  49206674            G            A     0.39400   0.5080
+5    rs708686  19   5840619            T            C     0.23000   0.2670
+6  rs28929474  14  94844947            T            C     0.00811   0.0203
+7  rs34851490  19  46384554            G            A     0.08510   0.1160
+8   rs1169288  12 121416650            C            A     0.31000   0.3130
+9  rs13280055   8  11522353            A            G     0.12700   0.1330
+10 rs56398830  13 103701690            A            G     0.00590   0.0109
+11   rs174567  11  61593005            G            A     0.39300   0.3510
+12 rs11012737  10  21849769            A            G     0.27400   0.3060
+13  rs2469991   8 120347476            T            A     0.31800   0.2890
+14     rs1935  10  64927823            C            G     0.47600   0.4720
+15 rs17240268  15  90347814            A            G     0.12200   0.0895
+16    rs12004  22  38877461            G            T     0.30600   0.2970
+17 rs55971546  13 103718308            T            C     0.04140   0.0435
+18 rs11641445  16  11639484            T            C     0.34300   0.3120
+19 rs17138478  17  36073320            A            C     0.13100   0.1290
+20  rs2292553   2 219146803            G            A     0.46000   0.5630
+21 rs12968116  18  55322502            T            C     0.16100   0.1250
+22 rs11887534   2  44066247            C            G     0.05450   0.0656
+23   rs212100  19  48376995            T            C     0.16000   0.8360
+24 rs12633863   3 149211512            G            A     0.45400   0.5530
+25  rs4148808   7  87105795            C            T     0.15800   0.1390
+26  rs6471717   8  59377357            G            A     0.31000   0.6630
+27   rs686030   9  15304782            C            A     0.12900   0.8590
+31  rs2070959   2 234602191            G            A     0.31600   0.3160
+32 rs45575636   7  87060844            T            C     0.00310   0.0087
+   OR..95..CI..GallStone P.GallStone
+1       1.12 [1.10,1.14]     2.4e-27
+2       1.12 [1.10,1.14]     4.7e-27
+3       1.29 [1.23,1.35]     5.7e-26
+4       0.91 [0.89,0.93]     9.4e-22
+5       1.26 [1.20,1.32]     7.4e-20
+6       1.33 [1.25,1.42]     1.8e-17
+7       1.12 [1.09,1.15]     4.2e-15
+8       0.92 [0.90,0.94]     1.6e-14
+9       1.11 [1.08,1.14]     6.9e-14
+10      1.36 [1.25,1.48]     2.1e-12
+11      1.07 [1.05,1.09]     2.3e-12
+12      1.07 [1.05,1.09]     3.7e-12
+13      0.93 [0.91,0.95]     9.2e-12
+14      0.94 [0.92,0.95]     9.2e-12
+15      0.90 [0.87,0.93]     6.0e-11
+16      1.07 [1.05,1.09]     1.2e-10
+17      1.15 [1.10,1.20]     1.8e-10
+18      1.06 [1.04,1.08]     4.2e-10
+19      1.09 [1.06,1.12]     5.1e-10
+20      0.94 [0.92,0.96]     1.1e-08
+21      0.92 [0.89,0.95]     1.2e-08
+22      1.94 [1.88,2.08]     0.0e+00
+23      0.86 [0.83,0.88]     2.0e-31
+24      1.11 [1.09,1.13]     3.6e-30
+25      0.86 [0.84,0.88]     8.6e-28
+26      1.11 [1.09,1.13]     9.9e-26
+27      0.88 [0.85,0.90]     1.8e-20
+31      1.07 [1.05,1.09]     8.5e-11
+32      1.34 [1.21,1.48]     7.9e-09
+> head(pheno_all)
+  GENO_PID agegroup_18_29 agegroup_30_39 agegroup_40_49 agegroup_50_59
+1 1:810001              0              0              0              1
+2 2:810002              0              0              0              1
+3 3:810003              0              0              0              1
+4 4:810012              0              0              0              0
+5 5:810013              0              0              0              0
+6 6:810014              0              0              0              0
+  agegroup_60 gender     EV3     EV4     EV5     EV8     EV9 affected_status
+1           0      F  0.0097  0.0096 -0.0101  0.0214  0.0099            Case
+2           0      M  0.0087  0.0132 -0.0168 -0.0051 -0.0088            Case
+3           0      M -0.0254  0.0083  0.0060  0.0279  0.0212            Case
+4           1      M -0.0196  0.0145 -0.0093 -0.0126  0.0062            Case
+5           1      M -0.0255 -0.0021  0.0049  0.0063  0.0139            Case
+6           1      F  0.0225 -0.0065  0.0097  0.0028  0.0035            Case
+  stoneyn rs2291428 rs2290846 rs1800961 rs601338 rs708686 rs28929474 rs34851490
+1       0     0.000         0         0    0.028    0.000          0          1
+2       0     1.362         0         0    1.996    1.000          0          0
+3       0     1.000         0         0    2.000    2.000          0          0
+4       0     1.000         0         0    2.000    0.000          0          0
+5       0     0.000         0         1    1.964    1.995          0          0
+6       0     0.000         0         0    2.000    0.000          0          0
+  rs1169288 rs13280055 rs56398830 rs174567 rs11012737 rs2469991 rs1935
+1     0.064      0.000          0        0          0         1      1
+2     2.000      0.000          0        0          0         0      2
+3     0.000      0.001          0        1          0         1      0
+4     0.000      0.000          0        0          0         1      0
+5     1.051      0.000          0        0          1         0      1
+6     1.000      0.000          0        0          0         0      1
+  rs17240268 rs12004 rs55971546 rs11641445 rs17138478 rs2292553 rs12968116
+1          0       0          0      2.000          0         0          1
+2          0       1          0      2.000          0         1          0
+3          1       0          0      2.000          1         1          0
+4          0       2          0      1.000          0         1          0
+5          0       1          0      2.000          0         0          0
+6          0       1          0      1.004          0         0          0
+  rs11887534 rs212100 rs12633863 rs4148808 rs6471717 rs686030 rs2070959
+1          0        0          0         0         1        0         1
+2          0        0          2         0         0        1         0
+3          0        0          2         2         2        0         1
+4          0        0          1         1         1        0         1
+5          0        0          2         0         1        0         0
+6          0        0          1         0         1        0         1
+  rs45575636
+1          0
+2          0
+3          0
+4          0
+5          0
+6          0
+> write.csv(pheno.all,file = "pheno_all.csv")
+Error in is.data.frame(x) : object 'pheno.all' not found
+> write.csv(pheno_all,file = "pheno_all_GBC.csv")
+> getwd()
+[1] "/users/hzhang1/R/GBV/result"
+> write.csv(PRS.result,file = "PRS_result_GBC.csv")
+> setwd('/Users/zhangh24/GoogleDrive/project/Nilanjan/Gallballadar_Cancer/'))
+Error in setwd("/Users/zhangh24/GoogleDrive/project/Nilanjan/Gallballadar_Cancer/") : 
+  cannot change working directory
+> PRS.result <- read.csv("./result/PRS.result")
+Error in file(file, "rt") : cannot open the connection
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file './result/PRS.result': No such file or directory
+> pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header == T))
+> agegroup_18_29 <- rep(0,n)
+> idx <- which(pheno$age>=18&pheno$age<=29)
+> agegroup_18_29[idx] <- 1
+> sum(agegroup_18_29)
+[1] NA
+> agegroup_30_39 <- rep(0,n)
+> idx <- which(pheno$age>=30&pheno$age<=39)
+> agegroup_30_39[idx] <- 1
+> agegroup_40_49 <- rep(0,n)
+> idx <- which(pheno$age>=40&pheno$age<=49)
+> agegroup_40_49[idx] <- 1
+> agegroup_50_59 <- rep(0,n)
+> idx <- which(pheno$age>=50&pheno$age<=59)
+> agegroup_50_59[idx] <- 1
+> agegroup_60 <- rep(0,n)
+> idx <- which(pheno$age>=60)
+> agegroup_60[idx] <- 1
+> pheno_new <- cbind(pheno[,c(2)],
++                    agegroup_18_29,
++                    agegroup_30_39,
++                    agegroup_40_49,
++                    agegroup_50_59,
++                    agegroup_60,
++                    pheno[,c(13,19,20,21,24,25,10,30)])
+Error in data.frame(..., check.names = FALSE) : 
+  arguments imply differing number of rows: 2751, 2588, 2742, 2746, 2736
+> pheno_order <- pheno_new[,1,drop=F]
+> colnames(pheno_order) <- "GENO_PID"
+> genotype_match <- left_join(pheno_order,genotype,by="GENO_PID")
+> colnames(pheno_new)[1] <- "GENO_PID"
+> pheno_all <- left_join(pheno_new,genotype,by="GENO_PID")
+> colnames(pheno_all)[15:43] <- as.character(result.new[,1])
+> covar <- pheno_all[,2:12]
+> gene <- pheno_all[,15]
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all[,14])
+Warning message:
+NAs introduced by coercion 
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   OR_2[i] <- function.result[[4]]
++   p2[i] <- function.result[[5]]
++   logOR_2[i] <- function.result[[6]]
++   freq[i] <- function.result[[7]]
++ }
+> model.result <- data.frame(freq,OR_1,p1,logOR_1,OR_2,p2,logOR_2,stringsAsFFactors=F)
+> colnames(model.result) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)",
++                             "OR (95% CI) GallStone (IND)",
++                             "P GallStone (IND)",
++                             "log OR GallStone (IND)")
+> setwd('/users/hzhang1/R/GBV/result')
+> write.csv(model.result,file = "./Gallbladder_analysis_29SNPs.csv")
+> all.gene <- as.matrix(pheno_all[,15:43])
+> #PRS1 <- all.gene%*%logOR_1
+> logOR <- logOR_2
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result <- data.frame(temp.result[[1]],
++                          temp.result[[2]],
++                          temp.result[[3]],
++                          temp.result[[4]])
+> colnames(prs.result) <- c("logORpersd",
++                           "sdoflogOR",
++                           "ORpersd",
++                           "P")
 > 
+> #stratified analysis
+> #gallstone group
+> pheno_all_stone <- pheno_all[(pheno_all$stoneyn==1),]
+> covar <- pheno_all_stone[,2:12]
+> gene <- pheno_all_stone[,15]
+> n <- nrow(pheno_all_stone)
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all_stone$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all_stone[,14])
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all_stone[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   freq[i] <- function.result[[7]]
++ }
+There were 30 warnings (use warnings() to see them)
+> model.result.stone <- data.frame(freq,OR_1,p1,logOR_1,freq,stringsAsFactorrs=F)
+> colnames(model.result.stone) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)")
+> write.csv(model.result.stone,file = "./Gallbladderstone_analysis_29SNPs.cssv")
+> all.gene <- as.matrix(pheno_all_stone[,15:43])
+> #PRS1 <- all.gene%*%logOR_1
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result.temp <- data.frame(temp.result[[1]],
++                           temp.result[[2]],
++                           temp.result[[3]],
++                           temp.result[[4]])
+> colnames(prs.result.temp) <- c("logORpersd",
++                                "sdoflogOR",
++                                "ORpersd",
++                                "P")
+> 
+> prs.result <- rbind(prs.result,
++                     prs.result.temp)
+> 
+> 
+> 
+> 
+> 
+> #nogallstone group
+> pheno_all_stone <- pheno_all[(pheno_all$stoneyn==0),]
+> covar <- pheno_all_stone[,2:12]
+> gene <- pheno_all_stone[,15]
+> n <- nrow(pheno_all_stone)
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all_stone$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all_stone[,14])
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all_stone[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   freq[i] <- function.result[[7]]
++ }
+There were 29 warnings (use warnings() to see them)
+> model.result.nostone <- data.frame(freq,OR_1,p1,logOR_1,stringsAsFactors=FF)
+> colnames(model.result.nostone) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)")
+> write.csv(model.result.nostone,file = "./Gallbladdernostone_analysis_29SNPPs.csv")
+> all.gene <- as.matrix(pheno_all_stone[,15:43])
+> #PRS1 <- all.gene%*%logOR_1
+> 
+> #logOR <- logOR_2
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result.temp <- data.frame(temp.result[[1]],
++                               temp.result[[2]],
++                               temp.result[[3]],
++                               temp.result[[4]])
+> colnames(prs.result.temp) <- c("logORpersd",
++                                "sdoflogOR",
++                                "ORpersd",
++                                "P")
+> 
+> prs.result <- rbind(prs.result,
++                     prs.result.temp)
+> 
+> 
+> 
+> 
+> pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header == T))
+> agegroup_18_29 <- rep(0,n)
+> idx <- which(pheno$age>=18&pheno$age<=29)
+> agegroup_18_29[idx] <- 1
+> sum(agegroup_18_29)
+[1] NA
+> agegroup_30_39 <- rep(0,n)
+> idx <- which(pheno$age>=30&pheno$age<=39)
+> agegroup_30_39[idx] <- 1
+> agegroup_40_49 <- rep(0,n)
+> idx <- which(pheno$age>=40&pheno$age<=49)
+> agegroup_40_49[idx] <- 1
+> agegroup_50_59 <- rep(0,n)
+> idx <- which(pheno$age>=50&pheno$age<=59)
+> agegroup_50_59[idx] <- 1
+> agegroup_60 <- rep(0,n)
+> idx <- which(pheno$age>=60)
+> agegroup_60[idx] <- 1
+> pheno_new <- cbind(pheno[,c(2)],
++                    agegroup_18_29,
++                    agegroup_30_39,
++                    agegroup_40_49,
++                    agegroup_50_59,
++                    agegroup_60,
++                    pheno[,c(13,19,20,21,24,25,10,30)])
+Error in data.frame(..., check.names = FALSE) : 
+  arguments imply differing number of rows: 2751, 2588, 2742, 2746, 2736
+> pheno_order <- pheno_new[,1,drop=F]
+> colnames(pheno_order) <- "GENO_PID"
+> genotype_match <- left_join(pheno_order,genotype,by="GENO_PID")
+> colnames(pheno_new)[1] <- "GENO_PID"
+> pheno_all <- left_join(pheno_new,genotype,by="GENO_PID")
+> colnames(pheno_all)[15:43] <- as.character(result.new[,1])
+> 
+> covar <- pheno_all[,2:12]
+> gene <- pheno_all[,15]
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all[,14])
+Warning message:
+NAs introduced by coercion 
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   OR_2[i] <- function.result[[4]]
++   p2[i] <- function.result[[5]]
++   logOR_2[i] <- function.result[[6]]
++   freq[i] <- function.result[[7]]
++ }
+model.result <- data.frame(freq,OR_1,p1,logOR_1,OR_2,p2,logOR_2,stringsAsFactors=F)
+colnames(model.result) <- c("MAF IND",
+                            "OR (95% CI) GallBladderCancer (IND)",
+                            "P GallBladderCancer",
+                            "log OR GallBladderCancer (IND)",
+                            "OR (95% CI) GallStone (IND)",
+                            "P GallStone (IND)",
+                            "log OR GallStone (IND)")
+> model.result <- data.frame(freq,OR_1,p1,logOR_1,OR_2,p2,logOR_2,stringsAsFFactors=F)
+> colnames(model.result) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)",
++                             "OR (95% CI) GallStone (IND)",
++                             "P GallStone (IND)",
++                             "log OR GallStone (IND)")
+> setwd('/users/hzhang1/R/GBV/result')
+> all.gene <- as.matrix(pheno_all[,15:43])
+> #PRS1 <- all.gene%*%logOR_1
+> logOR <- logOR_2
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result <- data.frame(temp.result[[1]],
++                          temp.result[[2]],
++                          temp.result[[3]],
++                          temp.result[[4]])
+> colnames(prs.result) <- c("logORpersd",
++                           "sdoflogOR",
++                           "ORpersd",
++                           "P")
+> prs.result
+  logORpersd  sdoflogOR         ORpersd            P
+1   0.325737 0.04082628 1.39 [1.28,1.5] 1.479884e-15
+> pheno_all_stone <- pheno_all[(pheno_all$stoneyn==1),]
+> covar <- pheno_all_stone[,2:12]
+> gene <- pheno_all_stone[,15]
+> n <- nrow(pheno_all_stone)
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all_stone$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all_stone[,14])
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all_stone[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   freq[i] <- function.result[[7]]
++ }
+all.gene <- as.matrix(pheno_all_stone[,15:43])
+There were 30 warnings (use warnings() to see them)
+> model.result.stone <- data.frame(freq,OR_1,p1,logOR_1,freq,stringsAsFactorrs=F)
+> colnames(model.result.stone) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)")
+> all.gene <- as.matrix(pheno_all_stone[,15:43])
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result.temp <- data.frame(temp.result[[1]],
++                           temp.result[[2]],
++                           temp.result[[3]],
++                           temp.result[[4]])
+> colnames(prs.result.temp) <- c("logORpersd",
++                                "sdoflogOR",
++                                "ORpersd",
++                                "P")
+> 
+> prs.result <- rbind(prs.result,
++                     prs.result.temp)
+> 
+> pheno_all_stone <- pheno_all[(pheno_all$stoneyn==0),]
+> covar <- pheno_all_stone[,2:12]
+> gene <- pheno_all_stone[,15]
+> n <- nrow(pheno_all_stone)
+> casecontrol <- rep(0,n)
+> casecontrol[pheno_all_stone$affected_status=="Case"] <- 1
+> stone <- as.numeric(pheno_all_stone[,14])
+> n.snp <- ncol(genotype)-1
+> OR_1 <- rep("c",n.snp)
+> p1 <- rep(0,n.snp)
+> logOR_1 <- rep(0,n.snp)
+> OR_2 <- rep("c",n.snp)
+> p2 <- rep(0,n.snp)
+> logOR_2 <- rep(0,n.snp)
+> freq <- rep(0,n.snp)
+> for(i in 1:n.snp){
++   gene <- pheno_all_stone[,14+i]
++   function.result <- SNPwiseFun(casecontrol,covar,gene,stone)
++   OR_1[i] <- function.result[[1]]
++   p1[i] <- function.result[[2]]
++   logOR_1[i] <- function.result[[3]]
++   freq[i] <- function.result[[7]]
++ }
+There were 29 warnings (use warnings() to see them)
+> model.result.nostone <- data.frame(freq,OR_1,p1,logOR_1,stringsAsFactors=FF)
+> colnames(model.result.nostone) <- c("MAF IND",
++                             "OR (95% CI) GallBladderCancer (IND)",
++                             "P GallBladderCancer",
++                             "log OR GallBladderCancer (IND)")
+> all.gene <- as.matrix(pheno_all_stone[,15:43])
+> #PRS1 <- all.gene%*%logOR_1
+> 
+> #logOR <- logOR_2
+> PRS <- all.gene%*%logOR
+> idx.control <- which(casecontrol==0)
+> PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+> temp.result <- PRSFun(casecontrol,PRS)
+> prs.result.temp <- data.frame(temp.result[[1]],
++                               temp.result[[2]],
++                               temp.result[[3]],
++                               temp.result[[4]])
+> colnames(prs.result.temp) <- c("logORpersd",
++                                "sdoflogOR",
++                                "ORpersd",
++                                "P")
+> 
+> prs.result <- rbind(prs.result,
++                     prs.result.temp)
+> 
+> 
+> prs.result
+  logORpersd  sdoflogOR          ORpersd            P
+1  0.3257370 0.04082628  1.39 [1.28,1.5] 1.479884e-15
+2  0.3454612 0.17326336 1.41 [1.01,1.98] 4.616840e-02
+3  0.2440136 0.04721523  1.28 [1.16,1.4] 2.364704e-07
+> write.csv(PRS.result,file = "PRS_result_GBC.csv")
+> write.csv(prs.result,file = "PRS_result_GBC.csv")
+> packet_write_wait: Connection to 162.129.223.101 port 22: Broken pipe
+]0;~NCI-02034757-ML:~ zhangh24$ git status
+fatal: Not a git repository (or any of the parent directories): .git
+]0;~NCI-02034757-ML:~ zhangh24$ git status
+fatal: Not a git repository (or any of the parent directories): .git
+]0;~NCI-02034757-ML:~ zhangh24$ 
