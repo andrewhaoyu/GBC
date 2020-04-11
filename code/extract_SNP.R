@@ -23,12 +23,16 @@ i1 <- as.numeric(commanarg[[1]])
 print(i1)
 
 #snplist.gtex = c("rs10004195","rs368433")
-snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
-#three SNPs (rs1260326,rs756082276,rs756935975 ) can't be found in the dataset
-snp.data <- snp.data[-c(28:30),]
-snp.list <- snp.data$SNP
-chr.list <-  snp.data$CHR
+snp.data <- read.csv("/users/hzhang1/R/GBV/data/Snps_pos_chr_extract_041120.csv",stringsAsFactors=F)
+chr.list <-  as.numeric(gsub("chr","",snp.data$Chromosome))
 pos.list <- snp.data$Position
+
+#snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
+#three SNPs (rs1260326,rs756082276,rs756935975 ) can't be found in the dataset
+# snp.data <- snp.data[-c(28:30),]
+# snp.list <- snp.data$SNP
+# chr.list <-  snp.data$CHR
+# pos.list <- snp.data$Position
 #names <- paste(snplist.gtex,collapse="|")
 
 # pos.list <- c(87105795,87060844)
@@ -66,7 +70,7 @@ chr.pos.target <- paste0(chr.list,":",pos.list)
 try <- chr.pos%in%chr.pos.target
 if(sum(try)!=0){
 	result <- data[try,]
-	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/result_extract",i1,".rda"))
+  	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/result_extract",i1,".rda"))
 }
 print(sum(try))
 print("finished")

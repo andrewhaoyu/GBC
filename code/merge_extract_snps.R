@@ -2,17 +2,70 @@
 setwd("/dcl01/chatterj/data/GB/NEW/KG/snpR")
 
 
-filesDir <- '/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/'
-files <- dir(filesDir,pattern="result_extract",full.names=T)
-result <- NULL
-result.all <- NULL
-for(i in 1:length(files)){
-  print(i)
-  load(files[i])
-  result.all <- rbind(result.all,result)
+# filesDir <- '/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/'
+# files <- dir(filesDir,pattern="result_extract",full.names=T)
+# result <- NULL
+# result.all <- NULL
+# for(i in 1:length(files)){
+#   print(i)
+#   load(files[i])
+#   result.all <- rbind(result.all,result)
+# }
+# setwd('/users/hzhang1/R/GBV/result')
+# save(result.all,file = "./extract_snp_all.Rdata")
+SNPwiseFun <- function(casecontrol,covar,gene,stone){
+  model <- glm(casecontrol~covar$agegroup_18_29+covar$agegroup_30_39+
+                 covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
+                 covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
+  result <- summary(model)
+  temp.result <-round(exp(c(result$coefficient[12,1],
+                            result$coefficient[12,1]-1.96*result$coefficient[12,2],
+                            result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
+  
+  function.result <- list()
+  function.result [[1]]<-paste0(temp.result[1]," [",
+                                temp.result[2],",",
+                                temp.result[3],"]")
+  function.result [[2]] <- result$coefficients[12,4]
+  function.result[[3]] <- result$coefficient[12,1]
+  model2 <- glm(stone~covar$agegroup_18_29+covar$agegroup_30_39+
+                  covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
+                  covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
+  result <- summary(model2)
+  temp.result <-round(exp(c(result$coefficient[12,1],
+                            result$coefficient[12,1]-1.96*result$coefficient[12,2],
+                            result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
+  
+  #function.result <- list()
+  function.result [[4]]<-paste0(temp.result[1]," [",
+                                temp.result[2],",",
+                                temp.result[3],"]")
+  function.result [[5]] <- result$coefficients[12,4]
+  idx.control <- which(casecontrol==0)
+  freq <- sum(gene[idx.control])/(2*length(idx.control))
+  function.result[[6]] <- result$coefficient[12,1]
+  function.result[[7]] <- freq
+  return(function.result)
 }
 
+PRSFun <- function(y,PRS){
+  model <- glm(y~PRS,family=binomial)
+  result <- summary(model)
+  temp.result <-round(exp(c(result$coefficient[2,1],
+                            result$coefficient[2,1]-1.96*result$coefficient[2,2],
+                            result$coefficient[2,1]+1.96*result$coefficient[2,2])),2)
+  function.result <- list()
+  function.result[[1]] <- result$coefficient[2,1]
+  function.result[[2]] <- result$coefficient[2,2]
+  function.result [[3]]<-paste0(temp.result[1]," [",
+                                temp.result[2],",",
+                                temp.result[3],"]")
+  function.result [[4]] <- result$coefficients[2,4]
+  return(function.result)
+}
 
+setwd('/users/hzhang1/R/GBV/result')
+load("./extract_snp_all.Rdata")
 snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
 #three SNPs can't be found in the dataset
 snp.data <- snp.data[-c(28:30),]
@@ -49,10 +102,11 @@ colnames(genotype)[1] <- "GENO_PID"
 head(result.new[,1:6])
 library(data.table)
 pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header = T))
+n <- nrow(pheno)
 agegroup_18_29 <- rep(0,n)
 idx <- which(pheno$age>=18&pheno$age<=29)
 agegroup_18_29[idx] <- 1
-sum(agegroup_18_29)
+#sum(agegroup_18_29)
 agegroup_30_39 <- rep(0,n)
 idx <- which(pheno$age>=30&pheno$age<=39)
 agegroup_30_39[idx] <- 1
@@ -111,16 +165,19 @@ colnames(model.result) <- c("MAF IND",
                             "OR (95% CI) GallStone (IND)",
                             "P GallStone (IND)",
                             "log OR GallStone (IND)")
-setwd('/users/hzhang1/R/GBV/result')
+
 write.csv(model.result,file = "./Gallbladder_analysis_29SNPs.csv")
 
 #prs
-all.gene <- as.matrix(pheno_all[,15:43])
+idx <- which(freq>=0.005)
+all.gene <- as.matrix(pheno_all[,14+idx])
 #PRS1 <- all.gene%*%logOR_1
-logOR <- logOR_2
+logOR <- logOR_2[idx]
 PRS <- all.gene%*%logOR
 idx.control <- which(casecontrol==0)
-PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+scale.factor <- sd(PRS[idx.control])
+#PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+PRS <- all.gene%*%logOR/scale.factor
 temp.result <- PRSFun(casecontrol,PRS)
 prs.result <- data.frame(temp.result[[1]],
                          temp.result[[2]],
@@ -130,6 +187,80 @@ colnames(prs.result) <- c("logORpersd",
                           "sdoflogOR",
                           "ORpersd",
                           "P")
+
+
+idx.stone <- which(pheno_all$stoneyn==1)
+temp.result <- PRSFun(casecontrol[idx.stone],PRS[idx.stone])
+prs.result.temp <- data.frame(temp.result[[1]],
+                              temp.result[[2]],
+                              temp.result[[3]],
+                              temp.result[[4]])
+colnames(prs.result.temp) <- c("logORpersd",
+                               "sdoflogOR",
+                               "ORpersd",
+                               "P")
+
+prs.result <- rbind(prs.result,
+                    prs.result.temp)
+
+idx.nostone <- which(pheno_all$stoneyn==0)
+temp.result <- PRSFun(casecontrol[idx.nostone],PRS[idx.nostone])
+prs.result.temp <- data.frame(temp.result[[1]],
+                              temp.result[[2]],
+                              temp.result[[3]],
+                              temp.result[[4]])
+colnames(prs.result.temp) <- c("logORpersd",
+                               "sdoflogOR",
+                               "ORpersd",
+                               "P")
+prs.result <- rbind(prs.result,
+                    prs.result.temp)
+#use the log OR from the meta-analysis of UKBB and Iceland
+log.or.UK <- rep(0,n.snp)
+for(i in 1:n.snp){
+  log.or.UK[i] <- log(as.numeric(strsplit(snp.data[i,8]," ")[[1]][1]))  
+}
+logOR <- log.or.UK[idx]
+PRS <- all.gene%*%logOR
+idx.control <- which(casecontrol==0)
+scale.factor.uk <- sd(PRS[idx.control])
+#PRS <- all.gene%*%logOR/sd(PRS[idx.control])
+PRS <- all.gene%*%logOR/scale.factor.uk
+temp.result <- PRSFun(casecontrol,PRS)
+prs.result.new <- data.frame(temp.result[[1]],
+                         temp.result[[2]],
+                         temp.result[[3]],
+                         temp.result[[4]])
+colnames(prs.result.new) <- c("logORpersd",
+                          "sdoflogOR",
+                          "ORpersd",
+                          "P")
+idx.stone <- which(pheno_all$stoneyn==1)
+temp.result <- PRSFun(casecontrol[idx.stone],PRS[idx.stone])
+prs.result.temp <- data.frame(temp.result[[1]],
+                              temp.result[[2]],
+                              temp.result[[3]],
+                              temp.result[[4]])
+colnames(prs.result.temp) <- c("logORpersd",
+                               "sdoflogOR",
+                               "ORpersd",
+                               "P")
+
+prs.result.new <- rbind(prs.result.new,
+                    prs.result.temp)
+
+idx.nostone <- which(pheno_all$stoneyn==0)
+temp.result <- PRSFun(casecontrol[idx.nostone],PRS[idx.nostone])
+prs.result.temp <- data.frame(temp.result[[1]],
+                              temp.result[[2]],
+                              temp.result[[3]],
+                              temp.result[[4]])
+colnames(prs.result.temp) <- c("logORpersd",
+                               "sdoflogOR",
+                               "ORpersd",
+                               "P")
+prs.result.new <- rbind(prs.result.new,
+                    prs.result.temp)
 
 #stratified analysis
 #gallstone group
@@ -144,9 +275,6 @@ n.snp <- ncol(genotype)-1
 OR_1 <- rep("c",n.snp)
 p1 <- rep(0,n.snp)
 logOR_1 <- rep(0,n.snp)
-OR_2 <- rep("c",n.snp)
-p2 <- rep(0,n.snp)
-logOR_2 <- rep(0,n.snp)
 freq <- rep(0,n.snp)
 for(i in 1:n.snp){
   gene <- pheno_all_stone[,14+i]
@@ -162,26 +290,7 @@ colnames(model.result.stone) <- c("MAF IND",
                             "P GallBladderCancer",
                             "log OR GallBladderCancer (IND)")
 write.csv(model.result.stone,file = "./Gallbladderstone_analysis_29SNPs.csv")
-all.gene <- as.matrix(pheno_all_stone[,15:43])
-#PRS1 <- all.gene%*%logOR_1
-PRS <- all.gene%*%logOR
-idx.control <- which(casecontrol==0)
-PRS <- all.gene%*%logOR/sd(PRS[idx.control])
-temp.result <- PRSFun(casecontrol,PRS)
-prs.result.temp <- data.frame(temp.result[[1]],
-                          temp.result[[2]],
-                          temp.result[[3]],
-                          temp.result[[4]])
-colnames(prs.result.temp) <- c("logORpersd",
-                               "sdoflogOR",
-                               "ORpersd",
-                               "P")
-
-prs.result <- rbind(prs.result,
-                    prs.result.temp)
-
-
-
+idx <- which(freq>=0.005)
 
 
 #nogallstone group
@@ -196,9 +305,6 @@ n.snp <- ncol(genotype)-1
 OR_1 <- rep("c",n.snp)
 p1 <- rep(0,n.snp)
 logOR_1 <- rep(0,n.snp)
-OR_2 <- rep("c",n.snp)
-p2 <- rep(0,n.snp)
-logOR_2 <- rep(0,n.snp)
 freq <- rep(0,n.snp)
 for(i in 1:n.snp){
   gene <- pheno_all_stone[,14+i]
@@ -214,115 +320,14 @@ colnames(model.result.nostone) <- c("MAF IND",
                             "P GallBladderCancer",
                             "log OR GallBladderCancer (IND)")
 write.csv(model.result.nostone,file = "./Gallbladdernostone_analysis_29SNPs.csv")
-
-all.gene <- as.matrix(pheno_all_stone[,15:43])
-#PRS1 <- all.gene%*%logOR_1
-
-#logOR <- logOR_2
-PRS <- all.gene%*%logOR
-idx.control <- which(casecontrol==0)
-PRS <- all.gene%*%logOR/sd(PRS[idx.control])
-temp.result <- PRSFun(casecontrol,PRS)
-prs.result.temp <- data.frame(temp.result[[1]],
-                              temp.result[[2]],
-                              temp.result[[3]],
-                              temp.result[[4]])
-colnames(prs.result.temp) <- c("logORpersd",
-                               "sdoflogOR",
-                               "ORpersd",
-                               "P")
-
-prs.result <- rbind(prs.result,
-                    prs.result.temp)
-
-
-
-
-
-
-
-
-
-# result1 <- PRSFun(casecontrol,PRS1)
-# log.or[1] <- result1[[1]]
-# sd.log.or[1] <-  result1[[2]]
-# or[1] <- result1[[3]]
-# p[1] <- result1[[4]]
-# result2 <- PRSFun(stone,PRS2)
-# log.or[2] <- result2[[1]]
-# sd.log.or[2] <-  result2[[2]]
-# or[2] <- result2[[3]]
-# p[2] <- result2[[4]]
-# result3 <- PRSFun(casecontrol,PRS3)
-# log.or[3] <- result3[[1]]
-# sd.log.or[3] <-  result3[[2]]
-# or[3] <- result3[[3]]
-# p[3] <- result3[[4]]
-# result4 <- PRSFun(stone,PRS4)
-# log.or[4] <- result4[[1]]
-# sd.log.or[4] <-  result4[[2]]
-# or[4] <- result4[[3]]
-# p[4] <- result4[[4]]
-
-#PRS.result <- data.frame(log.or,sd.log.or,or,p,stringsAsFactors = F)
 write.csv(pheno_all,file = "pheno_all_GBC.csv")
 write.csv(prs.result,file = "PRS_result_GBC.csv")
-
+write.csv(prs.result.new,file = "PRS_result_GBC_UK.csv")
 
 
 
 ##statistical function
 
-SNPwiseFun <- function(casecontrol,covar,gene,stone){
-  model <- glm(casecontrol~covar$agegroup_18_29+covar$agegroup_30_39+
-                 covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
-                 covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
-  result <- summary(model)
-  temp.result <-round(exp(c(result$coefficient[12,1],
- result$coefficient[12,1]-1.96*result$coefficient[12,2],
-  result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
-  
-  function.result <- list()
-  function.result [[1]]<-paste0(temp.result[1]," [",
-                                 temp.result[2],",",
-                                 temp.result[3],"]")
-  function.result [[2]] <- result$coefficients[12,4]
-  function.result[[3]] <- result$coefficient[12,1]
-  model2 <- glm(stone~covar$agegroup_18_29+covar$agegroup_30_39+
-                 covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
-                 covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
-  result <- summary(model2)
-  temp.result <-round(exp(c(result$coefficient[12,1],
-                            result$coefficient[12,1]-1.96*result$coefficient[12,2],
-                            result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
-  
-  #function.result <- list()
-  function.result [[4]]<-paste0(temp.result[1]," [",
-                                temp.result[2],",",
-                                temp.result[3],"]")
-  function.result [[5]] <- result$coefficients[12,4]
-  idx.control <- which(casecontrol==0)
-  freq <- sum(gene[idx.control])/(2*length(idx.control))
-  function.result[[6]] <- result$coefficient[12,1]
-  function.result[[7]] <- freq
-  return(function.result)
-}
-
-PRSFun <- function(y,PRS){
-  model <- glm(y~PRS,family=binomial)
-  result <- summary(model)
-  temp.result <-round(exp(c(result$coefficient[2,1],
-                            result$coefficient[2,1]-1.96*result$coefficient[2,2],
-                            result$coefficient[2,1]+1.96*result$coefficient[2,2])),2)
-  function.result <- list()
-  function.result[[1]] <- result$coefficient[2,1]
-  function.result[[2]] <- result$coefficient[2,2]
-  function.result [[3]]<-paste0(temp.result[1]," [",
-                                temp.result[2],",",
-                                temp.result[3],"]")
-  function.result [[4]] <- result$coefficients[2,4]
-  return(function.result)
-}
 
 
 # pheno_SNPtest.txtx
