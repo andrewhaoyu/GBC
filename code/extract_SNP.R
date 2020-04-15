@@ -56,6 +56,7 @@ load(file)
 chr.temp <- gsub("/dcl01/chatterj/data/GB/NEW/KG/snpR/chr","",file)
 chr.temp <- gsub(".imputed.txt.gz.rda","",chr.temp)
 chr <- as.numeric(strsplit(chr.temp,"_")[[1]][1])
+
 chr.vec <- rep(chr,nrow(data))
 pos.vec <- data[,3]
 chr.pos <- paste0(chr.vec,":",pos.vec)

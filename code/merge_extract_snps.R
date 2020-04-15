@@ -5,12 +5,14 @@ setwd("/dcl01/chatterj/data/GB/NEW/KG/snpR")
 # filesDir <- '/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/'
 # files <- dir(filesDir,pattern="result_extract",full.names=T)
 # result <- NULL
-# result.all <- NULL
+# result.all.list <- list()
 # for(i in 1:length(files)){
 #   print(i)
 #   load(files[i])
-#   result.all <- rbind(result.all,result)
+#   result.all.list[[i]] <- result
 # }
+# library(data.table)
+# result.all <- rbindlist(result.all.list)
 # setwd('/users/hzhang1/R/GBV/result')
 # save(result.all,file = "./extract_snp_all.Rdata")
 SNPwiseFun <- function(casecontrol,covar,gene,stone){
@@ -66,19 +68,24 @@ PRSFun <- function(y,PRS){
 
 setwd('/users/hzhang1/R/GBV/result')
 load("./extract_snp_all.Rdata")
-snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
+#snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
 #three SNPs can't be found in the dataset
-snp.data <- snp.data[-c(28:30),]
-snp.list <- snp.data$SNP
-chr.list <-  snp.data$CHR
+#snp.data <- snp.data[-c(28:30),]
+# snp.list <- snp.data$SNP
+# chr.list <-  snp.data$CHR
+# pos.list <- snp.data$Position
+snp.data <- read.csv("/users/hzhang1/R/GBV/data/Snps_pos_chr_extract_041120.csv",stringsAsFactors=F)
+snp.list <- snp.data$Locus
+chr.list <-  as.numeric(gsub("chr","",snp.data$Chromosome))
 pos.list <- snp.data$Position
+
 snp.infor <- data.frame(snp.list,chr.list,pos.list)
 library(dplyr)
-colnames(snp.infor)[3] <- "pos"
-#head(result.all[,1:5])
-colnames(result.all)[3] <- "pos"
+
+
+colnames(result.all)[2] <- "snp.list"
 #match by position
-result.new <- left_join(snp.infor,result.all,by="pos")
+result.new <- left_join(snp.infor,result.all,by="snp.list")
 result.new <- result.new[,c(1,2,3,6,7,8:ncol(result.new))]
 #number of subject
 n <- (ncol(result.new)-5)/3
@@ -89,16 +96,20 @@ for(i in 1:n){
   genotype[i,] <- 0*result.new[,temp]+1*result.new[,temp+1]+2*result.new[,temp+2]
   temp = temp+3
 }
-##Minor.allele reference
-MA <- snp.data[,4]
-##code the genotype with reference to minor allele
-idx <- which(as.character(result.new$V5)!=MA)
-genotype[,idx] <- 2-genotype[,idx]
-#freq = apply(genotype,2,function(x){sum(x)/(2*length(x))})
-#match the order of imputed file to pheno file
+# ##Minor.allele reference
+# MA <- snp.data[,4]
+# ##code the genotype with reference to minor allele
+# idx <- which(as.character(result.new$V5)!=MA)
+# genotype[,idx] <- 2-genotype[,idx]
+# #freq = apply(genotype,2,function(x){sum(x)/(2*length(x))})
+# #match the order of imputed file to pheno file
 sample.order <- read.table("/dcl01/chatterj/data/GB/NEW/sample.lst")
 genotype <- data.frame(sample.order,genotype,stringsAsFactors = F)
-colnames(genotype)[1] <- "GENO_PID"
+
+
+colnames(genotype)[1] <- "subject.id"
+colnames(genotype)[2:283] <- as.character(snp.infor[,1])
+write.csv(genotype,file = "/users/hzhang1/R/GBV/result/extracted_snp_genotype.csv",row.names=F)
 head(result.new[,1:6])
 library(data.table)
 pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header = T))
