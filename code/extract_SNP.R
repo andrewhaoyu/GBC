@@ -20,14 +20,16 @@
 commanarg <- commandArgs(trailingOnly = T)
 print(commanarg)
 i1 <- as.numeric(commanarg[[1]])
+i2 <- as.numeric(commanarg[[2]])
 print(i1)
 
 #snplist.gtex = c("rs10004195","rs368433")
 #snp.data <- read.csv("/users/hzhang1/R/GBV/data/Snps_pos_chr_extract_041120.csv",stringsAsFactors=F)
 # chr.list <-  as.numeric(gsub("chr","",snp.data$Chromosome))
 # pos.list <- snp.data$Position
+trait = c("bmi","whr")
 
-snp.data <- read.csv("/users/hzhang1/R/GBV/data/obsesity_snps.csv",stringsAsFactors=F)
+snp.data <- read.csv(paste0("/users/hzhang1/R/GBV/data/",trait[i2],"_snps.csv"),stringsAsFactors=F)
 chr.list <-  as.numeric(snp.data$chr)
 pos.list <- snp.data$position
 
@@ -75,7 +77,7 @@ chr.pos.target <- paste0(chr.list,":",pos.list)
 try <- chr.pos%in%chr.pos.target
 if(sum(try)!=0){
 	result <- data[try,]
-  	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/obsesity_snps_result_extract",i1,".rda"))
+  	save(result,file=paste0("/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/",trait[i2],"_snps_result_extract",i1,".rda"))
 }
 print(sum(try))
 print("finished")

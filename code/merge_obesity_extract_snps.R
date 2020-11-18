@@ -1,71 +1,4 @@
-#Goal: merge extracted SNPs and statistical analysis
-setwd("/dcl01/chatterj/data/GB/NEW/KG/snpR")
-
-
-# filesDir <- '/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/'
-# files <- dir(filesDir,pattern="result_extract",full.names=T)
-# result <- NULL
-# result.all.list <- list()
-# for(i in 1:length(files)){
-#   print(i)
-#   load(files[i])
-#   result.all.list[[i]] <- result
-# }
-# library(data.table)
-# result.all <- rbindlist(result.all.list)
-# setwd('/users/hzhang1/R/GBV/result')
-# save(result.all,file = "./extract_snp_all.Rdata")
-SNPwiseFun <- function(casecontrol,covar,gene,stone){
-  model <- glm(casecontrol~covar$agegroup_18_29+covar$agegroup_30_39+
-                 covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
-                 covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
-  result <- summary(model)
-  temp.result <-round(exp(c(result$coefficient[12,1],
-                            result$coefficient[12,1]-1.96*result$coefficient[12,2],
-                            result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
-  
-  function.result <- list()
-  function.result [[1]]<-paste0(temp.result[1]," [",
-                                temp.result[2],",",
-                                temp.result[3],"]")
-  function.result [[2]] <- result$coefficients[12,4]
-  function.result[[3]] <- result$coefficient[12,1]
-  model2 <- glm(stone~covar$agegroup_18_29+covar$agegroup_30_39+
-                  covar$agegroup_40_49+covar$agegroup_60+covar$gender+covar$EV3+
-                  covar$EV4+covar$EV5+covar$EV8+covar$EV9+gene,family=binomial)
-  result <- summary(model2)
-  temp.result <-round(exp(c(result$coefficient[12,1],
-                            result$coefficient[12,1]-1.96*result$coefficient[12,2],
-                            result$coefficient[12,1]+1.96*result$coefficient[12,2])),2)
-  
-  #function.result <- list()
-  function.result [[4]]<-paste0(temp.result[1]," [",
-                                temp.result[2],",",
-                                temp.result[3],"]")
-  function.result [[5]] <- result$coefficients[12,4]
-  idx.control <- which(casecontrol==0)
-  freq <- sum(gene[idx.control])/(2*length(idx.control))
-  function.result[[6]] <- result$coefficient[12,1]
-  function.result[[7]] <- freq
-  return(function.result)
-}
-
-PRSFun <- function(y,PRS){
-  model <- glm(y~PRS,family=binomial)
-  result <- summary(model)
-  temp.result <-round(exp(c(result$coefficient[2,1],
-                            result$coefficient[2,1]-1.96*result$coefficient[2,2],
-                            result$coefficient[2,1]+1.96*result$coefficient[2,2])),2)
-  function.result <- list()
-  function.result[[1]] <- result$coefficient[2,1]
-  function.result[[2]] <- result$coefficient[2,2]
-  function.result [[3]]<-paste0(temp.result[1]," [",
-                                temp.result[2],",",
-                                temp.result[3],"]")
-  function.result [[4]] <- result$coefficients[2,4]
-  return(function.result)
-}
-
+#Goal: merge extracted SNPs
 setwd('/users/hzhang1/R/GBV/result')
 library(data.table)
 filedir = "/dcl01/chatterj/data/GB/NEW/KG/snpR/extract_snps/"
@@ -84,30 +17,28 @@ for(i1 in 1:694){
 }
 result.all = rbindlist(result.list)
 save(result.all,file = "/users/hzhang1/R/GBV/result/obseity_extract_snp_all.rdata")
-
-
-
-
-
-
-
-load("./extract_snp_all.Rdata")
-snp.data <- read.csv("/users/hzhang1/R/GBV/data/extracted_SNPs_information_new.csv",stringsAsFactors = F)
-#three SNPs can't be found in the dataset
-#snp.data <- snp.data[-c(28:30),]
- snp.list <- snp.data$SNP
- chr.list <-  snp.data$CHR
- pos.list <- snp.data$Position
-
+load("/users/hzhang1/R/GBV/result/obseity_extract_snp_all.rdata")
+snp.data <- read.csv("/users/hzhang1/R/GBV/data/obsesity_snps.csv",stringsAsFactors=F)
+snp.list <- snp.data$rsid
+chr.list <- snp.data$chr
+pos.list <- snp.data$position
 
 snp.infor <- data.frame(snp.list,chr.list,pos.list)
 library(dplyr)
-
-
-colnames(result.all)[2] <- "snp.list"
+idx <- which(pos.list==2970464)
+print(idx)
+colnames(result.all)[3] <- "pos.list"
 #match by position
-result.new <- left_join(snp.infor,result.all,by="snp.list")
+result.new <- left_join(snp.infor,result.all,by="pos.list")
 result.new <- result.new[,c(1,2,3,6,7,8:ncol(result.new))]
+snp.infor.update = result.new %>% 
+  mutate(snpid = snp.list,
+         chr = chr.list,
+         position = pos.list,
+         non_coding_allele = V4,
+         coding_allele = V5) %>% 
+  select(snpid,chr,position,non_coding_allele,coding_allele)
+write.csv(snp.infor.update,file = "/users/hzhang1/R/GBV/result/obesity_extracted_snp_infor.csv",row.names=F)
 #number of subject
 n <- (ncol(result.new)-5)/3
 #compute imputed genotype
@@ -129,8 +60,8 @@ genotype <- data.frame(sample.order,genotype,stringsAsFactors = F)
 
 
 colnames(genotype)[1] <- "subject.id"
-colnames(genotype)[2:283] <- as.character(snp.infor[,1])
-write.csv(genotype,file = "/users/hzhang1/R/GBV/result/extracted_snp_genotype.csv",row.names=F)
+colnames(genotype)[2:ncol(genotype)] <- as.character(snp.infor[,1])
+write.csv(genotype,file = "/users/hzhang1/R/GBV/result/obesity_extracted_snp_genotype.csv",row.names=F)
 head(result.new[,1:6])
 library(data.table)
 pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header = T))
@@ -261,13 +192,13 @@ scale.factor.uk <- sd(PRS[idx.control])
 PRS <- all.gene%*%logOR/scale.factor.uk
 temp.result <- PRSFun(casecontrol,PRS)
 prs.result.new <- data.frame(temp.result[[1]],
-                         temp.result[[2]],
-                         temp.result[[3]],
-                         temp.result[[4]])
+                             temp.result[[2]],
+                             temp.result[[3]],
+                             temp.result[[4]])
 colnames(prs.result.new) <- c("logORpersd",
-                          "sdoflogOR",
-                          "ORpersd",
-                          "P")
+                              "sdoflogOR",
+                              "ORpersd",
+                              "P")
 idx.stone <- which(pheno_all$stoneyn==1)
 temp.result <- PRSFun(casecontrol[idx.stone],PRS[idx.stone])
 prs.result.temp <- data.frame(temp.result[[1]],
@@ -280,7 +211,7 @@ colnames(prs.result.temp) <- c("logORpersd",
                                "P")
 
 prs.result.new <- rbind(prs.result.new,
-                    prs.result.temp)
+                        prs.result.temp)
 
 idx.nostone <- which(pheno_all$stoneyn==0)
 temp.result <- PRSFun(casecontrol[idx.nostone],PRS[idx.nostone])
@@ -293,7 +224,7 @@ colnames(prs.result.temp) <- c("logORpersd",
                                "ORpersd",
                                "P")
 prs.result.new <- rbind(prs.result.new,
-                    prs.result.temp)
+                        prs.result.temp)
 
 #stratified analysis
 #gallstone group
@@ -319,9 +250,9 @@ for(i in 1:n.snp){
 }
 model.result.stone <- data.frame(freq,OR_1,p1,logOR_1,freq,stringsAsFactors=F)
 colnames(model.result.stone) <- c("MAF IND",
-                            "OR (95% CI) GallBladderCancer (IND)",
-                            "P GallBladderCancer",
-                            "log OR GallBladderCancer (IND)")
+                                  "OR (95% CI) GallBladderCancer (IND)",
+                                  "P GallBladderCancer",
+                                  "log OR GallBladderCancer (IND)")
 write.csv(model.result.stone,file = "./Gallbladderstone_analysis_29SNPs.csv")
 idx <- which(freq>=0.005)
 
@@ -349,9 +280,9 @@ for(i in 1:n.snp){
 }
 model.result.nostone <- data.frame(freq,OR_1,p1,logOR_1,stringsAsFactors=F)
 colnames(model.result.nostone) <- c("MAF IND",
-                            "OR (95% CI) GallBladderCancer (IND)",
-                            "P GallBladderCancer",
-                            "log OR GallBladderCancer (IND)")
+                                    "OR (95% CI) GallBladderCancer (IND)",
+                                    "P GallBladderCancer",
+                                    "log OR GallBladderCancer (IND)")
 write.csv(model.result.nostone,file = "./Gallbladdernostone_analysis_29SNPs.csv")
 write.csv(pheno_all,file = "pheno_all_GBC.csv")
 write.csv(prs.result,file = "PRS_result_GBC.csv")
