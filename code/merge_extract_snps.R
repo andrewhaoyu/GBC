@@ -113,6 +113,7 @@ write.csv(genotype,file = "/users/hzhang1/R/GBV/result/extracted_snp_genotype.cs
 head(result.new[,1:6])
 library(data.table)
 pheno <-as.data.frame(fread("/users/hzhang1/R/GBC/data/pheno.txt",header = T))
+idx <- which(pheno$ID==840226)
 n <- nrow(pheno)
 agegroup_18_29 <- rep(0,n)
 idx <- which(pheno$age>=18&pheno$age<=29)
